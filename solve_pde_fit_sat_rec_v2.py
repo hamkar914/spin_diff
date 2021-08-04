@@ -100,7 +100,10 @@ def solve_pde(d,D,t1l,t1s,dt,N,t,s_p,e_p):
 
                 B[m,n] = -2*dt*r+1
                 B[m,n-1] = dt*r
-
+    
+    
+    # invert A, will be needed
+    Ainv = np.linalg.inv(A)
 
     # Now solve the system for each dt
     for i in range(int(t/dt)):
@@ -113,9 +116,6 @@ def solve_pde(d,D,t1l,t1s,dt,N,t,s_p,e_p):
 
         # Add column vector C to rhs
         Bu0pC = Bu0+C
-
-        # invert A of lhs
-        Ainv = np.linalg.inv(A)
 
         # multiply Bu0mC with A invert to get next point in time
         u1 = np.dot(Ainv, Bu0pC)
